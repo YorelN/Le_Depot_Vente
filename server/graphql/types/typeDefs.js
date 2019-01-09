@@ -6,10 +6,9 @@ const typeDefs = gql`
     customer: Customer
     customers: [Customer]
   }
-  type Mutation {
-    addCustomer(customer: AddCustomerInputType): Customer
-  }
 
+  # First approach ...
+  # TODO: Use a better way to import Type/Input/InputType.
   ${customer}
 `;
 

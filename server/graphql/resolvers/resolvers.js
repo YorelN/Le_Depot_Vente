@@ -1,14 +1,9 @@
-import Customers from '../../../imports/api/customers';
 import * as CustomerMutations from '../resolvers/customers/mutations';
+import * as CustomerQueries from '../resolvers/customers/queries';
 
 const resolvers = {
   Query: {
-    customer: () => ({
-      firstName: 'toto',
-      lastName: 'tata',
-      email: 'toto@tata.fr',
-    }),
-    customers: () => Customers.find({}),
+    ...CustomerQueries,
   },
   Mutation: {
     ...CustomerMutations,

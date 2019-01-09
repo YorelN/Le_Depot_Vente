@@ -13,4 +13,7 @@ export const customer = gql`
     lastName: String!
     email: String!
   }
+  type Mutation {
+    addCustomer(customer: AddCustomerInputType): Customer
+  }
 `;
