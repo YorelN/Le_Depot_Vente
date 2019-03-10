@@ -1,9 +1,9 @@
 import { gql } from 'apollo-server-express';
-import { customer } from './customers';
+import { customer } from './customers/customers';
 
 const typeDefs = gql`
   type Query {
-    customer: Customer
+    customer(id: String!): Customer
     customers: [Customer]
   }
 

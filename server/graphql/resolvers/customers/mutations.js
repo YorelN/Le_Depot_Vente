@@ -1,7 +1,8 @@
 import Customers from '../../../../imports/api/customers';
 
 export function addCustomer(root, { customer }, context) {
-  const addedCustomer = Customers.insert(customer);
+  const addedCustomerId = Customers.insert(customer);
+  const addedCustomer = Customers.find({ _id: addedCustomerId }).fetch();
 
-  return addedCustomer;
+  return addedCustomer[0];
 }

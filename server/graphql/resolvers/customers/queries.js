@@ -1,7 +1,7 @@
 import Customers from '../../../../imports/api/customers';
 
-export function customer({ args: { _id: customerId } }) {
-  const customer = Customers.findOne(id => id === customerId);
+export function customer(root, { id }, context) {
+  const customer = Customers.findOne({ _id: id });
 
   return customer;
 }
