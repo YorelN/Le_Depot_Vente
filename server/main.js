@@ -1,7 +1,8 @@
 import { Meteor } from 'meteor/meteor';
 import { ApolloServer } from 'apollo-server-express';
 import { WebApp } from 'meteor/webapp';
-// import { getUser } from 'meteor/apollo';
+
+import { Accounts } from 'meteor/accounts-base';
 
 import typeDefs from './graphql/types/typeDefs';
 import resolvers from './graphql/resolvers/resolvers';
@@ -12,9 +13,6 @@ Meteor.startup(() => {
   const server = new ApolloServer({
     typeDefs,
     resolvers,
-    // context: async ({ req }) => ({
-    //   user: await getUser(req.headers.authorization),
-    // }),
   });
 
   server.applyMiddleware({
@@ -26,5 +24,8 @@ Meteor.startup(() => {
     if (req.method === 'GET') {
       res.end();
     }
+  });
+  Meteor.publish('usersList', function() {
+    return Accounts.users.find({});
   });
 });

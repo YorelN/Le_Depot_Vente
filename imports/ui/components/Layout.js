@@ -60,7 +60,6 @@ class ResponsiveDrawer extends React.Component {
   render() {
     const { classes, theme } = this.props;
 
-    console.log(theme);
     return (
       <div>
         <AppBar position="fixed" className={classes.appBar}>
