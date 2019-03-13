@@ -12,9 +12,14 @@ function SignupPage({ ...rest }) {
 
   const { history } = rest;
 
-  const addUser = e => {
-    e.preventDefault();
-    Accounts.createUser({ email, password, username });
+  const addUser = () => {
+    Accounts.createUser({ email, password, username }, err => {
+      if (!err) {
+        Meteor.loginWithPassword(email, password, err => {
+          err && console.err(err);
+        });
+      }
+    });
   };
 
   return (
@@ -29,10 +34,7 @@ function SignupPage({ ...rest }) {
         <Paper
           title="Inscription"
           type="form"
-          handleSubmit={e => {
-            addUser(e);
-            history.push('/login');
-          }}
+          handleSubmit={() => addUser()}
           elevation={1}
           actions={[
             <Button light onClick={() => history.push('/login')}>

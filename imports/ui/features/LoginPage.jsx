@@ -3,7 +3,6 @@ import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import Paper from '../components/Paper';
 import Button from '../components/Button';
-import { Accounts } from 'meteor/accounts-base';
 
 function LoginPage({ ...rest }) {
   const [email, setEmail] = useState('');
@@ -11,10 +10,11 @@ function LoginPage({ ...rest }) {
 
   const { history } = rest;
 
-  const login = e => {
-    e.preventDefault();
+  const login = () => {
     Meteor.loginWithPassword(email, password, err => {
-      console.log(err);
+      if (err) {
+        console.error(err);
+      }
     });
   };
 
@@ -30,10 +30,10 @@ function LoginPage({ ...rest }) {
         <Paper
           title="Login"
           type="form"
-          handleSubmit={e => login(e)}
+          handleSubmit={() => login()}
           elevation={1}
           actions={[
-            <Button onClick={() => history.push('/signup')} validation>
+            <Button onClick={() => history.push('/signup')} light>
               Inscription
             </Button>,
             <Button type="submit" validation>
@@ -47,9 +47,11 @@ function LoginPage({ ...rest }) {
                 onChange={e => setEmail(e.target.value)}
                 label="Email"
                 required
+                type="email"
                 fullWidth
               />
               <TextField
+                type="password"
                 onChange={e => setPassword(e.target.value)}
                 label="Mot de passe "
                 required

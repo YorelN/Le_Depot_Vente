@@ -1,20 +1,28 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+
+import { Link } from 'react-router-dom';
+
 import AppBar from '@material-ui/core/AppBar';
 import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
 import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
+import Tooltip from '@material-ui/core/Tooltip';
+import Grid from '@material-ui/core/Grid';
+
+import MenuIcon from '@material-ui/icons/Menu';
+import DirectionsCar from '@material-ui/icons/DirectionsCar';
+import NewReleases from '@material-ui/icons/NewReleases';
+import PhoneIcon from '@material-ui/icons/Phone';
+import HomeIcon from '@material-ui/icons/Home';
+
 import { withStyles } from '@material-ui/core/styles';
-import { Grid } from '@material-ui/core';
 
 const styles = theme => ({
   root: {
     display: 'flex',
   },
   appBar: {
-    background: 'linear-gradient(to right, #2274A5 0%, #E83F6F 100%)',
+    background: '#ffef67',
   },
   menuButton: {
     marginRight: 20,
@@ -25,7 +33,10 @@ const styles = theme => ({
   content: {
     flexGrow: 1,
     padding: theme.spacing.unit * 3,
-    paddingTop: 64,
+    paddingTop: 85,
+    // background: '#26303c',
+    height: 'calc(100vh - 85px - 24px)',
+    zIndex: 420,
   },
   toolbar: {
     ...theme.mixins.toolbar,
@@ -36,8 +47,8 @@ const styles = theme => ({
   },
   button: {
     margin: '0 10px',
-    color: '#FFF',
-    borderColor: '#FFF',
+    color: '#26303c',
+    borderColor: '#26303c',
     fontWeight: 200,
     textTransform: 'unset',
   },
@@ -63,28 +74,46 @@ class ResponsiveDrawer extends React.Component {
     return (
       <div>
         <AppBar position="fixed" className={classes.appBar}>
-          <Toolbar className={classes.toolbar}>
+          <Toolbar className={classes.toolbar} variant="dense">
             <Grid container alignItems="center" justify="space-between">
               <Grid item xs={3}>
                 <IconButton
+                  component={Link}
+                  to="/"
                   color="inherit"
-                  aria-label="Open drawer"
-                  onClick={this.handleDrawerToggle}
-                  className={classes.menuButton}
+                  className={classes.button}
                 >
-                  <MenuIcon />
+                  <HomeIcon />
                 </IconButton>
               </Grid>
               <Grid item className={classes.menuLinks}>
-                <Button color="default" className={classes.button}>
-                  Toutes les voitures
-                </Button>
-                <Button color="default" className={classes.button}>
-                  Les dernières annonces
-                </Button>
-                <Button color="default" className={classes.button}>
-                  Nous contacter
-                </Button>
+                <Tooltip title="Toutes les voitures">
+                  <IconButton
+                    component={Link}
+                    to="/cars"
+                    className={classes.button}
+                  >
+                    <DirectionsCar />
+                  </IconButton>
+                </Tooltip>
+                <Tooltip title="Dernières annonces">
+                  <IconButton
+                    component={Link}
+                    to="/latest"
+                    className={classes.button}
+                  >
+                    <NewReleases />
+                  </IconButton>
+                </Tooltip>
+                <Tooltip title="Nous contacter">
+                  <IconButton
+                    component={Link}
+                    to="/contact"
+                    className={classes.button}
+                  >
+                    <PhoneIcon />
+                  </IconButton>
+                </Tooltip>
               </Grid>
             </Grid>
           </Toolbar>

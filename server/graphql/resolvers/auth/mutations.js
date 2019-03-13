@@ -1,5 +1,12 @@
+import { Meteor } from 'meteor/meteor';
+
 export function login(root, { credentials }, context) {
-  console.log(credentials);
-  console.log(context);
+  const { email, password } = credentials;
+
+  console.log(Meteor);
+  Meteor.loginWithPassword(email, password, err => {
+    console.log(err);
+  });
+
   return {};
 }

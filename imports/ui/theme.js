@@ -2,7 +2,7 @@ import { createMuiTheme } from '@material-ui/core/styles';
 
 const theme = createMuiTheme({
   palette: {
-    type: 'light',
+    type: 'dark',
     action: {
       hover: '#f2f3f7ab',
     },
@@ -12,6 +12,9 @@ const theme = createMuiTheme({
     primary: {
       main: '#5572FB',
     },
+  },
+  typography: {
+    useNextVariants: true,
   },
 
   overrides: {

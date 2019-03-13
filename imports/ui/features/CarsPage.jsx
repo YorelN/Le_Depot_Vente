@@ -15,10 +15,10 @@ function HomePage({ ...props }) {
     >
       {({ ...rest }) => {
         return (
-          <div>
-            <h1>Home</h1>
-            <p>Yay </p>
-          </div>
+          <React.Fragment>
+            <h1>Cars</h1>
+            <p>Yoy </p>
+          </React.Fragment>
         );
       }}
     </Query>

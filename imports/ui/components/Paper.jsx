@@ -21,7 +21,12 @@ function Paper({ title, type, actions, children, handleSubmit }) {
       {title && <MUICardHeader title={title} />}
       <CardContent>
         {type === 'form' ? (
-          <form onSubmit={handleSubmit}>
+          <form
+            onSubmit={e => {
+              e.preventDefault();
+              handleSubmit();
+            }}
+          >
             {children}
             <Spacer>
               <Grid
