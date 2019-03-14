@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Switch, withRouter, Link } from 'react-router-dom';
+import { Route, Switch, Redirect, withRouter } from 'react-router-dom';
 import PrivateRoutes from './PrivateRoutes';
 import SignupPage from '../../imports/ui/features/SignupPage';
 import HomePage from '../../imports/ui/features/HomePage';
@@ -9,50 +9,56 @@ import Layout from '../../imports/ui/components/Layout';
 import CarsPage from '../../imports/ui/features/CarsPage';
 import posed, { PoseGroup } from 'react-pose';
 
+import { Accounts } from 'meteor/accounts-base';
 const RouteContainer = posed.div({
   enter: {
     opacity: 1,
     y: 0,
+    delay: 150,
     transition: {
-      default: props => ({
+      default: () => ({
         duration: 300,
       }),
     },
   },
   exit: {
     opacity: 0,
-    y: 50,
-
+    y: 10,
     transition: {
-      default: props => ({
-        duration: 300,
+      default: () => ({
+        duration: 250,
       }),
     },
   },
 });
 
-function MainRoutes() {
+function MainRoutes({ ...rest }) {
+  const loggedIn =
+    Accounts._storedLoginToken() || Meteor.loggingIn() || Meteor.user();
+
   return (
-    <Route
-      render={({ location }) => {
-        return (
-          <Layout>
-            <PoseGroup>
-              <RouteContainer key={location.key}>
-                <Switch location={location}>
-                  <Route exact path="/" component={HomePage} key="home" />
-                  <Route path="/cars" component={CarsPage} key="cars" />
-                  <Route path="/signup" component={SignupPage} key="signup" />
-                  <Route path="/login" component={LoginPage} key="login" />
-                  <PrivateRoutes loggedIn={Meteor.loggingIn()} key="admin" />
-                </Switch>
-              </RouteContainer>
-            </PoseGroup>
-          </Layout>
-        );
-      }}
-    />
+    <Switch>
+      <Route
+        render={({ location }) => {
+          return (
+            <Layout loggedIn={!!loggedIn}>
+              <PoseGroup>
+                <RouteContainer key={location.key || location.pathname}>
+                  <Switch location={location}>
+                    <Route exact path="/" component={HomePage} key="home" />
+                    <Route path="/cars" component={CarsPage} key="cars" />
+                    <Route path="/signup" component={SignupPage} key="signup" />
+                    <Route path="/login" component={LoginPage} key="login" />
+                    <PrivateRoutes loggedIn={!!loggedIn} key="admin" />
+                  </Switch>
+                </RouteContainer>
+              </PoseGroup>
+            </Layout>
+          );
+        }}
+      />
+    </Switch>
   );
 }
 
-export default withApollo(MainRoutes);
+export default withRouter(withApollo(MainRoutes));

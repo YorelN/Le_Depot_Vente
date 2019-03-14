@@ -6,6 +6,7 @@ const typeDefs = gql`
   type Query {
     customer(id: String!): Customer
     customers: [Customer]
+    me: MeType
   }
   type Mutation {
     addCustomer(customer: AddCustomerInputType): Customer

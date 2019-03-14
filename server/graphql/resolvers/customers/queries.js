@@ -6,7 +6,7 @@ export function customer(root, { id }, context) {
   return customer;
 }
 
-export function customers() {
+export function customers(root, args, context) {
   const customers = Customers.find({}).fetch();
 
   return customers;

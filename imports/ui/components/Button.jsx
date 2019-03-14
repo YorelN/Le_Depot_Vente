@@ -11,6 +11,7 @@ const BaseButton = ({
   disabled,
   informations,
   children,
+  search,
   ...rest
 }) => {
   return <MUIButton {...rest}>{children}</MUIButton>;
@@ -27,6 +28,13 @@ const Button = styled(BaseButton)`
         &:hover {
           color: #848484;
         }
+      `};
+
+    ${({ search }) =>
+      search &&
+      css`
+        height: 56px;
+        margin-left: 10px;
       `};
 
     ${props =>

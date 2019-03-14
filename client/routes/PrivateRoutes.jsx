@@ -8,7 +8,7 @@ function PrivateRoutes({ loggedIn, ...rest }) {
     <Route
       exact
       path="/admin"
-      component={() => (!loggedIn ? <Redirect to="/login" /> : <AdminRoutes />)}
+      render={() => (loggedIn ? <AdminRoutes /> : <Redirect to="/login" />)}
     />
   );
 }

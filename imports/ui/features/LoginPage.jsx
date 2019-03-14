@@ -30,7 +30,10 @@ function LoginPage({ ...rest }) {
         <Paper
           title="Login"
           type="form"
-          handleSubmit={() => login()}
+          handleSubmit={() => {
+            login();
+            history.push('/admin');
+          }}
           elevation={1}
           actions={[
             <Button onClick={() => history.push('/signup')} light>

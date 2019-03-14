@@ -13,13 +13,7 @@ function SignupPage({ ...rest }) {
   const { history } = rest;
 
   const addUser = () => {
-    Accounts.createUser({ email, password, username }, err => {
-      if (!err) {
-        Meteor.loginWithPassword(email, password, err => {
-          err && console.err(err);
-        });
-      }
-    });
+    Accounts.createUser({ email, password, username }, err => {});
   };
 
   return (

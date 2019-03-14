@@ -10,4 +10,8 @@ export const credentials = gql`
     password: String!
     email: String!
   }
+
+  type MeType {
+    token: String
+  }
 `;

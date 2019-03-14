@@ -13,6 +13,10 @@ Meteor.startup(() => {
   const server = new ApolloServer({
     typeDefs,
     resolvers,
+
+    context: async ({ req }) => {
+      return { token: req.headers.authorization };
+    },
   });
 
   server.applyMiddleware({
@@ -24,8 +28,5 @@ Meteor.startup(() => {
     if (req.method === 'GET') {
       res.end();
     }
-  });
-  Meteor.publish('usersList', function() {
-    return Accounts.users.find({});
   });
 });
